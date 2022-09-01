@@ -8,7 +8,7 @@ API_KEY = os.environ.get("OWN_API_KEY")
 API_TOKEN = os.environ.get("OWN_API_TOKEN")
 exercise_api_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 sheety_api_endpoint = os.environ.get("SHEET_ENDPOINT")
-#BEARER_TOKEN = "nutrition@best"
+
 
 
 Exercise_question = input("Tell me what exercise you did today?")
@@ -26,16 +26,16 @@ header = {
 }
 response = requests.post(url=exercise_api_endpoint, json=exercise_params, headers=header)
 exercises = response.json()
-print(exercises)
+
 
 today = datetime.now()
-today_time = datetime.time(today).strftime("%H:%M:%S")
-# print(today_time)
+now_time = datetime.time(today).strftime("%H:%M:%S")
+
 for exercise in exercises["exercises"]:
     daily_params = {
         'workout': {
             "date": today.strftime(f"%d{'/'}%m{'/'}%Y"),
-            "time": today_time,
+            "time": now_time,
             "exercise": exercise['name'].title(),
             "duration": exercise['duration_min'],
             "calories": exercise['nf_calories']
